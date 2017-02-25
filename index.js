@@ -15,7 +15,7 @@ router.get('/api/getDados/:user', formMethods.getDados);
 
 router.post('/api/postDados/:user', formMethods.postDados);
 
-mongoose.connect("mongodb://filipe:pocdb@ds161029.mlab.com:61029/heroku_kccj42rv");
+mongoose.connect("mongodb://heroku_kccj42rv:f929ef1ernlbs3sr1n7n08he93@ds161029.mlab.com:61029/heroku_kccj42rv");
 
 var db = mongoose.connection;
 db.on('error', console.error);
