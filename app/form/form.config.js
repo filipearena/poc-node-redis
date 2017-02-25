@@ -7,7 +7,7 @@
                 templateUrl: 'form/view/form.html',
                 controller: 'formController as form'
             })
-            .when('/view1/:user', {
+            .when('/:user', {
                 templateUrl: 'form/view/form.html',
                 controller: 'formController as form'
             })
