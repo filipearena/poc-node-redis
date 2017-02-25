@@ -11,9 +11,9 @@ var router = express.Router();
 
 var formMethods = require('./server/api/formMethods');
 
-router.get('api/getDados/:user', formMethods.getDados);
+router.get('/api/getDados/:user', formMethods.getDados);
 
-router.post('api/postDados/:user', formMethods.postDados);
+router.post('/api/postDados/:user', formMethods.postDados);
 
 mongoose.connect("mongodb://filipe:pocdb@ds161029.mlab.com:61029/heroku_kccj42rv");
 
