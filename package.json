@@ -11,5 +11,8 @@
   },
   "scripts": {
     "start": "http-server app -p 9001 --c-1"
+  },
+  "dependencies": {
+    "express": "^4.14.1"
   }
 }
