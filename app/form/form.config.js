@@ -4,7 +4,7 @@
     function config($routeProvider) {
         $routeProvider
             .when('/', {
-                templateUrl: 'form/view/form.html',
+                templateUrl: 'form/view/error.html',
                 controller: 'formController as form'
             })
             .when('/:user', {

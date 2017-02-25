@@ -2,11 +2,16 @@
 
 (function () {
 
-    function formCtrl(formService, formFactory, $routeParams) {
+    function formCtrl(formService, formFactory, $routeParams, $window, $location) {
 
         var vm = this;
 
         var user = $routeParams.user;
+
+        if(!user){
+            $window.alert("Favor fornecer um usuario na url!");
+            $location.path("");
+        }
 
         var _service = formService.getDados(user);
 
