@@ -3,7 +3,7 @@
 (function () {
 
     var settings = {
-        apiEndpoint: 'http://www.teste.com'
+        apiEndpoint: 'api'
     };
 
     angular.module('myApp').constant('appSettings', settings);

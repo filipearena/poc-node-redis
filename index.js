@@ -4,13 +4,31 @@ var path = require('path');
 var express = require('express');
 var rootPath = path.normalize(__dirname);
 var port = process.env.PORT || '9001';
+var mongoose = require('mongoose');
 var app = express();
+
+var router = express.Router();
+
+var formMethods = require('./server/api/formMethods');
+
+router.get('/api/getDados/:user', formMethods.getDados);
+
+router.post('/api/postDados/:user', formMethods.postDados);
+
+mongoose.connect("mongodb://filipe:pocdb@ds161029.mlab.com:61029/heroku_kccj42rv");
+
+var db = mongoose.connection;
+db.on('error', console.error);
+db.once('open', startServer);
 
 app.use('/', express.static(path.resolve(path.join(__dirname, "app"))));
 
 app.set('view engine', 'html');
 app.set('views', rootPath);
 
-app.listen(port, undefined, function () {
-    console.log('Listening on port %d', port);
-});
+function startServer() {
+    app.listen(port, undefined, function () {
+        console.log('Listening on port %d', port);
+    });
+}
+

@@ -17,7 +17,7 @@
 
         _service.then(function (res) {
             vm.dados = formFactory.fromGetDados(res);
-        });
+        }, console.log("erro no getDados"));
 
         vm.submit = function () {
             formService.postDados(vm.dados, user).then(function () {
