@@ -9,12 +9,12 @@ var formMethods = {
     },
     
     postDados: function (req, res, next) {
-        var post = new formModels({
+        var formModels = new formModels({
             nome: req.body.username,
             sobrenome: req.body.sobrenome,
             email: req.body.email
         });
-        post.save(function (err, post) {
+        formModels.save(function (err, post) {
             if (err) { return next(err) }
             res.json(201, post)
         })
