@@ -11,10 +11,6 @@ var router = express.Router();
 
 var formMethods = require('./server/api/formMethods');
 
-router.get('/api/getDados/:user', formMethods.getDados);
-
-router.post('/api/postDados/:user', formMethods.postDados);
-
 mongoose.connect("mongodb://heroku_kccj42rv:f929ef1ernlbs3sr1n7n08he93@ds161029.mlab.com:61029/heroku_kccj42rv");
 
 var db = mongoose.connection;
@@ -22,6 +18,10 @@ db.on('error', console.error);
 db.once('open', startServer);
 
 app.use('/', express.static(path.resolve(path.join(__dirname, "app"))));
+
+router.get('/api/getDados/:user', formMethods.getDados);
+
+router.post('/api/postDados/:user', formMethods.postDados);
 
 app.set('view engine', 'html');
 app.set('views', rootPath);
