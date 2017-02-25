@@ -4,12 +4,12 @@
     function config($routeProvider) {
         $routeProvider
             .when('/', {
-                templateUrl: 'form/view/view1.html',
-                controller: 'View1Ctrl as ctrl1'
+                templateUrl: 'form/view/form.html',
+                controller: 'formController as form'
             })
             .when('/view1/:user', {
-                templateUrl: 'form/view/view1.html',
-                controller: 'View1Ctrl as ctrl1'
+                templateUrl: 'form/view/form.html',
+                controller: 'formController as form'
             })
             .otherwise({
                 redirectTo: '/'

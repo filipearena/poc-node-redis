@@ -8,8 +8,6 @@
 
         var user = $routeParams.user;
 
-        console.log("user", user);
-
         var _service = formService.getDados(user);
 
         _service.then(function (res) {
