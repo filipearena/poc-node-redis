@@ -6,9 +6,8 @@ var mongoose = require('mongoose'); 				// mongoose for mongodb
 var port = process.env.PORT || 9001; 				// set the port
 var bodyParser = require('body-parser');
 app.use(bodyParser.json()); // parse application/json
-//mongoose.connect("mongodb://localhost/poc-node-redis");
 
-mongoose.connect("mongodb://heroku_kccj42rv:f929ef1ernlbs3sr1n7n08he93@ds161029.mlab.com:61029/heroku_kccj42rv");
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/poc-node-redis");
 
 app.use(express.static('./app'));
 
