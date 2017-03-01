@@ -1,33 +1,28 @@
 'use strict';
 //Dependencies
-var path = require('path');
 var express = require('express');
-var rootPath = path.normalize(__dirname);
-var port = process.env.PORT || '9001';
-var mongoose = require('mongoose');
-var app = express();
+var app = express(); 						// create our app w/ express
+var mongoose = require('mongoose'); 				// mongoose for mongodb
+var port = process.env.PORT || 9001; 				// set the port
+var bodyParser = require('body-parser');
+app.use(bodyParser.json()); // parse application/json
+mongoose.connect("mongodb://localhost/poc-node-redis");
 
-var router = express.Router();
-
-var formMethods = require('./server/api/formMethods');
-
-mongoose.connect("mongodb://heroku_kccj42rv:f929ef1ernlbs3sr1n7n08he93@ds161029.mlab.com:61029/heroku_kccj42rv");
+app.use(express.static('./app'));
+//mongoose.connect("mongodb://heroku_kccj42rv:f929ef1ernlbs3sr1n7n08he93@ds161029.mlab.com:61029/heroku_kccj42rv");
 
 var db = mongoose.connection;
 db.on('error', console.error);
 db.once('open', startServer);
 
-app.use('/', express.static(path.resolve(path.join(__dirname, "app"))));
+require('./server/api/formMethods.js')(app);
 
-router.get('/api/getDados/:user', formMethods.getDados);
-
-router.post('/api/postDados/:user', formMethods.postDados);
-
-app.set('view engine', 'html');
-app.set('views', rootPath);
+app.get('*', function (req, res) {
+    res.sendFile(__dirname + '/app/index.html');
+});
 
 function startServer() {
-    app.listen(port, undefined, function () {
+    app.listen(port, function () {
         console.log('Listening on port %d', port);
     });
 }

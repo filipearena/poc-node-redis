@@ -8,22 +8,28 @@
 
         var user = $routeParams.user;
 
-        if(!user){
+        if (!user) {
             $window.alert("Favor fornecer um usuario na url!");
             $location.path("");
         }
 
-        var _service = formService.getDados(user);
-
-        _service.then(function (res) {
-            vm.dados = formFactory.fromGetDados(res);
-        }, console.log("erro no getDados"));
+        var obterDados = function () {
+            formService.getDados(user).then(function (res) {
+                vm.dados = formFactory.fromGetDados(res);
+            });
+        };
 
         vm.submit = function () {
             formService.postDados(vm.dados, user).then(function () {
                 console.log("dados uploaded!");
             })
-        }
+        };
+
+        var init = function () {
+            obterDados();
+        };
+
+        init();
     }
 
     angular.module('myApp.form', ['ngRoute']).controller('formController', formCtrl)

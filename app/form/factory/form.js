@@ -5,11 +5,17 @@
 
         return {
             fromGetDados: function (data) {
-                if (angular.isUndefined(data)) {
+                if (angular.isUndefined(data) || angular.isUndefined(data.data[0])) {
                     return {}
                 }
 
-                return data;
+                var dados = data.data[0];
+
+                return {
+                    nome: dados.nome,
+                    sobrenome: dados.sobrenome,
+                    email: dados.email
+                };
             }
         }
     }

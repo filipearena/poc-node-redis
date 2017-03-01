@@ -3,7 +3,7 @@
 (function () {
 
     var settings = {
-        apiEndpoint: 'https://poc-node-redis.herokuapp.com/api'
+        apiEndpoint: '/api'
     };
 
     angular.module('myApp').constant('appSettings', settings);
