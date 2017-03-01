@@ -2,11 +2,22 @@
 
 (function () {
 
-    function formCtrl(formService, formFactory, $routeParams, $window, $location) {
+    function formCtrl($scope, formService, formFactory, $routeParams, $window, $location, Socket) {
 
         var vm = this;
 
         var user = $routeParams.user;
+
+        Socket.connect();
+
+        $scope.$on('locationChangeStart', function () {
+            Socket.disconnect(true);
+        });
+
+        $scope.$watchCollection('form.dados', function () {
+            console.log("model mudou");
+            Socket.emit("user-data-changed", {chave: user})
+        });
 
         if (!user) {
             $window.alert("Favor fornecer um usuario na url!");

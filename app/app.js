@@ -2,10 +2,10 @@
 
 // Declare app level module which depends on views, and components
 angular.module('myApp', [
-  'ngRoute',
-  'myApp.form'
-]).
-config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
+    'ngRoute',
+    'myApp.form',
+    'btford.socket-io'
+]).config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
     $routeProvider
         .when('/', {
             templateUrl: 'form/view/error.html',

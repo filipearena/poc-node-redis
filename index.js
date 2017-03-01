@@ -1,11 +1,32 @@
 'use strict';
-//Dependencies
+
 var express = require('express');
-var app = express(); 						// create our app w/ express
-var mongoose = require('mongoose'); 				// mongoose for mongodb
-var port = process.env.PORT || 9001; 				// set the port
+var app = express();
+var http = require('http').Server(app);
+var mongoose = require('mongoose');
+var port = process.env.PORT || 9001;
 var bodyParser = require('body-parser');
-app.use(bodyParser.json()); // parse application/json
+var api = express.Router();
+app.use(bodyParser.json());
+
+//
+// var redis = require("redis");
+// var client = redis.createClient(app);
+
+var io = require('socket.io')(http);
+
+io.on('connection', function(socket) {
+    console.log("Novo usuario conectado");
+
+    socket.on('user-data-changed', function (data) {
+        //fazer update no redis
+        console.log("user",data.chave);
+    });
+
+    socket.on('disconnect', function () {
+        console.log("Usuario desconectado");
+    })
+});
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/poc-node-redis");
 
@@ -22,8 +43,9 @@ app.get('*', function (req, res) {
 });
 
 function startServer() {
-    app.listen(port, function () {
+    http.listen(port, function () {
         console.log('Listening on port %d', port);
     });
 }
+
 

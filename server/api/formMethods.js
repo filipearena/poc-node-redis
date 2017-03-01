@@ -1,13 +1,14 @@
 var formModels = require("../models/formModels");
 
 function getDados(req, res) {
-    formModels.find({chave: req.params.user},function (err, data) {
+    formModels.find({chave: req.params.user}, function (err, data) {
 
         if (err) {
-            res.send(err);
+            return res.send(err);
         }
-
-        res.json(data);
+        else {
+            return res.json(data);
+        }
     });
 }
 
@@ -17,14 +18,15 @@ module.exports = function (app) {
     });
 
     app.post('/api/postDados/:user', function (req, res) {
-        formModels.update({chave: req.params.user},{
+        formModels.update({chave: req.params.user}, {
             chave: req.params.user,
             nome: req.body.nome,
             sobrenome: req.body.sobrenome,
             email: req.body.email
-        },{ upsert: true }, function (err) {
-            if (err)
-                res.send(err);
+        }, {upsert: true}, function (err) {
+            if (err){
+                return res.send(err);
+            }
 
             getDados(req, res);
         });
