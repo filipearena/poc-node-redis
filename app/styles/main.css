@@ -9,3 +9,8 @@ form .enviar{
 .row {
     margin-top: 20px;
 }
+
+button:disabled {
+    background-color: #4574F3;
+    cursor: not-allowed;
+}
