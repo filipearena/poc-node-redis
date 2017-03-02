@@ -47,6 +47,10 @@ io.on('connection', function (socket) {
         });
     });
 
+    socket.on("form-done", function (user) {
+        socket.broadcast.emit('form-read-only', user);
+    });
+
     socket.on('disconnect', function () {
         console.log("Usuario desconectado");
     })

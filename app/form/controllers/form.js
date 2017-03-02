@@ -31,6 +31,12 @@
             vm.dados = JSON.parse(data);
         });
 
+        Socket.on("form-read-only", function (updatedUser) {
+            if(updatedUser == user){
+                vm.formIsDone = true;
+            }
+        });
+
         if (!user) {
             $window.alert("Favor fornecer um usuario na url!");
             $location.path("");
@@ -54,6 +60,7 @@
                 formService.postDados(vm.dados, user).then(function () {
                     console.log("dados uploaded!");
                     vm.formIsDone = true;
+                    Socket.emit("form-done", user);
                 })
             }
             else {
