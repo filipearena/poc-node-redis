@@ -33,7 +33,7 @@
         <br>
         <div class="row">
             <div class="col-xs-4">
-                <button type="submit" ng-disabled="!form.formulario.$valid" class="btn btn-primary">Enviar</button>
+                <button type="submit" ng-disabled="!form.formulario.$valid || formIsDone" class="btn btn-primary">Enviar</button>
             </div>
         </div>
     </form>
