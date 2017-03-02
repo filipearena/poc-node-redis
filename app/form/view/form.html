@@ -1,10 +1,10 @@
 <div class="container-fluid">
-    <form ng-submit="form.submit()">
+    <form ng-submit="form.submit(form.formulario)" name="form.formulario" novalidate>
         <div class="row">
             <div class="form-group">
                 <div class="col-xs-4">
                     <label for="campo1">Nome</label>
-                    <input type="text" class="form-control" id="campo1" ng-model="form.dados.nome">
+                    <input required ng-readonly="form.formIsDone" type="text" class="form-control" id="campo1" ng-model="form.dados.nome">
                 </div>
             </div>
         </div>
@@ -12,7 +12,7 @@
             <div class="form-group">
                 <div class="col-xs-4">
                     <label for="campo2">Sobrenome</label>
-                    <input type="text" class="form-control" id="campo2" ng-model="form.dados.sobrenome">
+                    <input required ng-readonly="form.formIsDone" type="text" class="form-control" id="campo2" ng-model="form.dados.sobrenome">
                 </div>
             </div>
         </div>
@@ -20,14 +20,14 @@
             <div class="form-group">
                 <div class="col-xs-4">
                     <label for="campo3">Email</label>
-                    <input type="email" class="form-control" id="campo3" ng-model="form.dados.email">
+                    <input required ng-readonly="form.formIsDone" type="text" class="form-control" id="campo3" ng-model="form.dados.email">
                 </div>
             </div>
         </div>
         <br>
         <div class="row">
             <div class="col-xs-4">
-                <button type="submit" class="btn btn-primary">Enviar</button>
+                <button type="submit" ng-disabled="!form.formulario.$valid" class="btn btn-primary">Enviar</button>
             </div>
         </div>
     </form>

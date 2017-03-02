@@ -9,18 +9,26 @@ var bodyParser = require('body-parser');
 var api = express.Router();
 app.use(bodyParser.json());
 
-//
-// var redis = require("redis");
-// var client = redis.createClient(app);
+
+var redis = require("redis");
+var client = redis.createClient(http);
 
 var io = require('socket.io')(http);
 
-io.on('connection', function(socket) {
+io.on('connection', function (socket) {
     console.log("Novo usuario conectado");
 
-    socket.on('user-data-changed', function (data) {
-        //fazer update no redis
-        console.log("user",data.chave);
+    socket.on('model-changed', function (data) {
+        client.set(data.chave, data.dados, function () {
+            //Atualiza todos outros clients menos o que fez o update
+            socket.broadcast.emit('model-updated');
+        });
+    });
+
+    socket.on('get-dados', function (user) {
+        client.get(user, function (err, reply) {
+            socket.emit('get-dados-result', reply);
+        });
     });
 
     socket.on('disconnect', function () {
