@@ -4,7 +4,8 @@
 angular.module('myApp', [
     'ngRoute',
     'myApp.form',
-    'btford.socket-io'
+    'btford.socket-io',
+    'ui-notification'
 ]).config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
     $routeProvider
         .when('/', {

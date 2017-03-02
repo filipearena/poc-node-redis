@@ -2,7 +2,7 @@
 
 (function () {
 
-    function formCtrl($scope, formService, formFactory, $routeParams, $window, $location, Socket) {
+    function formCtrl($scope, formService, formFactory, $routeParams, $location, Socket, Notification) {
 
         var vm = this;
 
@@ -33,12 +33,13 @@
 
         Socket.on("form-read-only", function (updatedUser) {
             if(updatedUser == user){
+                Notification.warning({message: 'Um usuário enviou o formulario antes de você!', positionY: 'top', positionX: 'center'});
                 vm.formIsDone = true;
             }
         });
 
         if (!user) {
-            $window.alert("Favor fornecer um usuario na url!");
+            Notification.error({message: 'Favor fornecer um usuário na url', positionY: 'top', positionX: 'center'});
             $location.path("");
         }
 
@@ -58,13 +59,13 @@
         vm.submit = function (form) {
             if(form.$valid){
                 formService.postDados(vm.dados, user).then(function () {
-                    console.log("dados uploaded!");
                     vm.formIsDone = true;
                     Socket.emit("form-done", user);
+                    Notification.success({message: 'Dados enviados com sucesso!', positionY: 'top', positionX: 'center'});
                 })
             }
             else {
-                $window.alert("Favor preencher todos os campos antes de enviar!");
+                notify('Favor preencher todos os campos');
             }
         };
 
