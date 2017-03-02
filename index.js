@@ -9,9 +9,11 @@ var bodyParser = require('body-parser');
 var api = express.Router();
 app.use(bodyParser.json());
 
+//redis://rediscloud:password@localhost:6379
 
 var redis = require("redis");
-var client = redis.createClient(http);
+
+var client = redis.createClient(process.env.REDISCLOUD_URL || http, {no_ready_check: true});
 
 var io = require('socket.io')(http);
 
