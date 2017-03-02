@@ -28,6 +28,7 @@ io.on('connection', function (socket) {
     console.log("Novo usuario conectado");
 
     socket.on('model-changed', function (data) {
+        console.log("index.js model-changed com data: ", data);
         client.set(data.chave, data.dados, function () {
             //Atualiza todos outros clients menos o que fez o update
             socket.broadcast.emit('model-updated');
@@ -35,7 +36,9 @@ io.on('connection', function (socket) {
     });
 
     socket.on('get-dados', function (user) {
+        console.log("index.js get-dados com user: ", user);
         client.get(user, function (err, reply) {
+            console.log("index.js get-dados-result com reply: ", reply);
             socket.emit('get-dados-result', reply);
         });
     });

@@ -16,15 +16,17 @@
             Socket.disconnect(true);
         });
 
-        $scope.$watchCollection("form.dados", function () {
+        vm.formUpdated = function () {
             if (vm.dados) {
-                console.log("do watch", vm.dados);
                 vm.dados = formFactory.toModelChangedEvent(vm.dados);
+                console.log("DADOS ENVIADOS DO WATCH: ", vm.dados);
+                console.log("CHAVE USADA: ", user);
                 Socket.emit("model-changed", {chave: user, dados: JSON.stringify(vm.dados)});
             }
-        });
+        };
 
         Socket.on("model-updated", function () {
+            console.log("envento de model-updated para usuario: ",user);
             Socket.emit("get-dados", user);
             Socket.on("get-dados-result", function (data) {
                 vm.dados = JSON.parse(data);

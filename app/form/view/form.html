@@ -6,7 +6,8 @@
                     <label for="campo1">Nome</label>
                     <input required ng-readonly="form.formIsDone" type="text" class="form-control" id="campo1"
                            ng-model="form.dados.nome"
-                           ng-model-options="{debounce: 750}">
+                           ng-model-options="{debounce: 750}"
+                           ng-change="form.formUpdated()">
                 </div>
             </div>
         </div>
@@ -16,7 +17,8 @@
                     <label for="campo2">Sobrenome</label>
                     <input required ng-readonly="form.formIsDone" type="text" class="form-control" id="campo2"
                            ng-model="form.dados.sobrenome"
-                           ng-model-options="{debounce: 750}">
+                           ng-model-options="{debounce: 750}"
+                    ng-change="form.formUpdated()">
                 </div>
             </div>
         </div>
@@ -26,7 +28,8 @@
                     <label for="campo3">Email</label>
                     <input required ng-readonly="form.formIsDone" type="text" class="form-control" id="campo3"
                            ng-model="form.dados.email"
-                           ng-model-options="{debounce: 750}">
+                           ng-model-options="{debounce: 750}"
+                           ng-change="form.formUpdated()">
                 </div>
             </div>
         </div>
