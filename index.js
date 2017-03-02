@@ -12,8 +12,15 @@ app.use(bodyParser.json());
 //redis://rediscloud:password@localhost:6379
 
 var redis = require("redis");
+var client;
 
-var client = redis.createClient(process.env.REDISCLOUD_URL || http, {no_ready_check: true});
+if(process.env.REDISCLOUD_URL){
+    client = redis.createClient(process.env.REDISCLOUD_URL, {no_ready_check: true});
+}
+else {
+    client = redis.createClient(http);
+}
+
 
 var io = require('socket.io')(http);
 
