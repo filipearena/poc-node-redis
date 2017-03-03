@@ -37,7 +37,7 @@
             },
             getRandomUserName: function () {
                 var namesList = ["ratazana", "baleia", "borboleta", "cadela", "cabra", "vaca", "egua", "ema", "fuinha", "gata"];
-                var surnamesList = ["peluda", "rabugenta", "gorda", "nervosa", "tensa", "suada", "pelancuda", "sinistra", "bizzarra", "lerda"];
+                var surnamesList = ["peluda", "rabugenta", "gorda", "nervosa", "tensa", "suada", "pelancuda", "sinistra", "esquisita", "lerda"];
 
                 var rand1 = Math.floor(Math.random() * 10) + 1;
                 var rand2 = Math.floor(Math.random() * 10) + 1;
