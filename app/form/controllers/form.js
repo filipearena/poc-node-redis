@@ -39,6 +39,10 @@
         });
 
         if (!user) {
+            formService.getAllDados().then(function (res) {
+                vm.users = res.data;
+                console.log("todos dados",res.data);
+            });
             Notification.error({message: 'Favor fornecer um usuário na url', positionY: 'top', positionX: 'center'});
             $location.path("");
         }

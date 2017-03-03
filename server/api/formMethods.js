@@ -1,18 +1,35 @@
 var formModels = require("../models/formModels");
 
 function getDados(req, res) {
-    formModels.find({chave: req.params.user}, function (err, data) {
+    if(req.params.user){
+        formModels.find({chave: req.params.user}, function (err, data) {
 
-        if (err) {
-            return res.send(err);
-        }
-        else {
-            return res.json(data);
-        }
-    });
+            if (err) {
+                return res.send(err);
+            }
+            else {
+                return res.json(data);
+            }
+        });
+    }
+    else {
+        formModels.find({},function (err, data) {
+            if (err) {
+                return res.send(err);
+            }
+            else {
+                return res.json(data);
+            }
+        });
+    }
+
 }
 
 module.exports = function (app) {
+    app.get('/api/getDados', function (req, res) {
+        getDados(req, res);
+    });
+
     app.get('/api/getDados/:user', function (req, res) {
         getDados(req, res);
     });

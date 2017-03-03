@@ -1,2 +1,18 @@
 <image style="width: 400px; height: 300px;" src="img/baby.jpg">
 </image>
+<h1>Existem <span ng-bind="form.users.length"></span> usuários cadastrados no Mongo:</h1>
+<ul>
+    <li ng-repeat="user in form.users">
+        <div class="user-card">
+            <h3>O usuário {{user.chave}} tem os atributos:</h3>
+            <span class="thick">Nome: </span><span ng-bind="user.nome">
+        </span>
+            <br>
+            <span class="bold">Sobrenome: </span><span ng-bind="user.sobrenome">
+        </span>
+            <br>
+            <span class="bold">Email: </span><span ng-bind="user.email">
+        </span>
+        </div>
+    </li>
+</ul>
