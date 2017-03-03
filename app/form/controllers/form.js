@@ -55,9 +55,19 @@
             })
         };
 
+        var validateEmail = function (email) {
+            var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(email);
+        };
+
 
         vm.submit = function (form) {
-            if(form.$valid){
+            var emailValido = validateEmail(vm.dados.email);
+            if (!emailValido){
+                Notification.error({message: 'Favor colocar um email válido!', positionY: 'top', positionX: 'center'});
+                return;
+            }
+            if(form.$valid && emailValido){
                 formService.postDados(vm.dados, user).then(function () {
                     vm.formIsDone = true;
                     Socket.emit("form-done", user);
