@@ -36,11 +36,11 @@
                 }
             },
             getRandomUserName: function () {
-                var namesList = ["batata", "baleia", "borboleta", "cadela", "cabra", "vaca"];
-                var surnamesList = ["peluda", "rabugenta", "gorda", "nervosa", "tensa", "suada"];
+                var namesList = ["batata", "baleia", "borboleta", "cadela", "cabra", "vaca", "egua", "ema", "fuinha", "gata"];
+                var surnamesList = ["peluda", "rabugenta", "gorda", "nervosa", "tensa", "suada", "pelancuda", "sinistra", "bizzarra", "lerda"];
 
-                var rand1 = Math.floor(Math.random() * 6) + 1;
-                var rand2 = Math.floor(Math.random() * 6) + 1;
+                var rand1 = Math.floor(Math.random() * 10) + 1;
+                var rand2 = Math.floor(Math.random() * 10) + 1;
 
                 return namesList[rand1-1] + " " + surnamesList[rand2-1];
             }
