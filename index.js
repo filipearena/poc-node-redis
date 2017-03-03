@@ -27,6 +27,8 @@ var io = require('socket.io')(http);
 io.on('connection', function (socket) {
     console.log("Novo usuario conectado");
 
+    // -----------FORM---------
+
     socket.on('model-changed', function (data) {
         client.set(data.chave, data.dados, function () {
             //Atualiza todos outros clients menos o que fez o update
@@ -49,6 +51,27 @@ io.on('connection', function (socket) {
 
     socket.on("form-done", function (user) {
         socket.broadcast.emit('form-read-only', user);
+    });
+
+    // --------CHAT-------------
+
+    socket.on("message-sent", function (mensagem) {
+        console.log("mensagem enviada");
+        client.set("mensagens", mensagem, function () {
+            socket.broadcast.emit('mensagens-updated');
+        });
+    });
+
+    socket.on("get-mensagens-chat", function () {
+        client.get("mensagens", function (err, reply) {
+            socket.emit('return-messagens-chat', reply);
+        });
+    });
+
+    socket.on("get-new-messages", function () {
+        client.get("mensagens", function (err, reply) {
+            socket.emit('return-new-messages', reply);
+        });
     });
 
     socket.on('disconnect', function () {

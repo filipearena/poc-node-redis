@@ -4,7 +4,7 @@
     function formService($http, appSettings) {
 
         return {
-            getAllDados: function () {
+            getAllUsers: function () {
                 return $http.get(appSettings.apiEndpoint + '/getDados');
             },
             getDados: function (user) {

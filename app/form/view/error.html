@@ -1,10 +1,23 @@
-<image style="width: 400px; height: 300px;" src="img/baby.jpg">
-</image>
+<h2>Chat dos usuários anônimos:</h2>
+<div class="chat" id="chat">
+    <p ng-repeat="message in form.chatMessages track by $index" ng-bind="message"></p>
+</div>
+<form class="user-input" novalidate ng-submit="form.sendChat(form.mensagem)">
+    <label for="chat-input">Digite sua mensagem:</label>
+    <input id="chat-input" autocomplete="off" type="text" ng-model="form.mensagem">
+    <div class="row">
+        <div class="col-xs-12">
+            <button class="btn btn-primary" ng-disabled="!form.mensagem || form.mensagem.length == 0">Enviar</button>
+        </div>
+    </div>
+
+</form>
+
 <h1>Existem <span ng-bind="form.users.length"></span> usuários cadastrados no Mongo:</h1>
 <ul>
     <li ng-repeat="user in form.users">
         <div class="user-card">
-            <h3>O usuário {{user.chave}} tem os atributos:</h3>
+            <h3>O usuário <span ng-bind="user.chave"></span> tem os atributos:</h3>
             <span class="thick">Nome: </span><span ng-bind="user.nome">
         </span>
             <br>

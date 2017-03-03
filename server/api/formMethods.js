@@ -47,7 +47,6 @@ module.exports = function (app) {
 
             getDados(req, res);
         });
-
     });
 
     app.get('*', function (req, res) {
