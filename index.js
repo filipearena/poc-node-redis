@@ -9,29 +9,25 @@ var bodyParser = require('body-parser');
 var api = express.Router();
 app.use(bodyParser.json());
 
-//redis://rediscloud:password@localhost:6379
-
 var redis = require("redis");
 var client;
 
-if(process.env.REDISCLOUD_URL){
-    client = redis.createClient(process.env.REDISCLOUD_URL, {no_ready_check: true});
-}
-else {
-    client = redis.createClient(http);
-}
+//Criando a instancia do client utilizado para manipulações do Redis, podendo ser local ou Redis Cloud (heroku)
+client = redis.createClient(process.env.REDISCLOUD_URL || http);
+
+// client = redis.createClient(process.env.REDISCLOUD_URL || http, {no_ready_check: true});
 
 
 var io = require('socket.io')(http);
 
+//Iniciando conexão com socket
 io.on('connection', function (socket) {
-    console.log("Novo usuario conectado");
 
     // -----------FORM---------
 
     socket.on('model-changed', function (data) {
         client.set(data.chave, data.dados, function () {
-            //Atualiza todos outros clients menos o que fez o update
+            //Atualiza todos outros clients menos o que de fato realizou o update
             socket.broadcast.emit('model-updated');
         });
     });
@@ -56,26 +52,11 @@ io.on('connection', function (socket) {
     // --------CHAT-------------
 
     socket.on("message-sent", function (mensagem) {
-        console.log("mensagem enviada");
-        client.set("mensagens", mensagem, function () {
-            socket.broadcast.emit('mensagens-updated');
-        });
-    });
-
-    socket.on("get-mensagens-chat", function () {
-        client.get("mensagens", function (err, reply) {
-            socket.emit('return-messagens-chat', reply);
-        });
-    });
-
-    socket.on("get-new-messages", function () {
-        client.get("mensagens", function (err, reply) {
-            socket.emit('return-new-messages', reply);
-        });
+        socket.broadcast.emit('mensagens-updated', mensagem);
     });
 
     socket.on('disconnect', function () {
-        console.log("Usuario desconectado");
+        //Funções para brincar no disconnect
     })
 });
 

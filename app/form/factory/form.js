@@ -42,7 +42,7 @@
                 var rand1 = Math.floor(Math.random() * 10) + 1;
                 var rand2 = Math.floor(Math.random() * 10) + 1;
 
-                return namesList[rand1-1] + " " + surnamesList[rand2-1];
+                return namesList[rand1 - 1] + " " + surnamesList[rand2 - 1];
             }
         }
     }
