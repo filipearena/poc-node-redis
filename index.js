@@ -51,17 +51,18 @@ io.on('connection', function (socket) {
 
     // --------CHAT-------------
 
+    socket.emit("user-joined");
 
-
-    socket.emit("user-joined", Object.keys(io.sockets.connected).length);
-    socket.broadcast.emit("user-joined", Object.keys(io.sockets.connected).length);
+    socket.broadcast.emit("number-users-changed", Object.keys(io.sockets.connected).length);
+    socket.emit("number-users-changed", Object.keys(io.sockets.connected).length);
 
     socket.on("message-sent", function (mensagem) {
         socket.broadcast.emit('mensagens-updated', mensagem);
     });
 
     socket.on('disconnect', function () {
-        socket.broadcast.emit("user-joined", Object.keys(io.sockets.connected).length);
+        socket.broadcast.emit("user-left");
+        socket.broadcast.emit("number-users-changed", Object.keys(io.sockets.connected).length);
     })
 });
 

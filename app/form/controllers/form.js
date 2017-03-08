@@ -113,9 +113,24 @@
             autoScrollDownChat();
         });
 
-        Socket.on("user-joined", function (numeroUsuarios) {
-            console.log("user joined")
+        Socket.on("number-users-changed", function (numeroUsuarios) {
             vm.numeroUsuarios = numeroUsuarios;
+        });
+
+        Socket.on("send-joined-user", function () {
+            Socket.emit("message-sent", mensagemDeLogin);
+        });
+
+        Socket.on("user-joined", function () {
+            var mensagemDeLogin = vm.usuarioRandom + " entrou no chat!";
+            Socket.emit("message-sent", mensagemDeLogin);
+            autoScrollDownChat();
+        });
+
+        Socket.on("user-left", function () {
+            var mensagemDeSaida = "Um usuario saiu do chat!";
+            angular.isArray(vm.chatMessages) ? vm.chatMessages.push(mensagemDeSaida) : vm.chatMessages = [mensagemDeSaida];
+            autoScrollDownChat();
         });
 
         vm.sendChat = function (mensagem) {
