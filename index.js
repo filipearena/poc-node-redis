@@ -51,12 +51,17 @@ io.on('connection', function (socket) {
 
     // --------CHAT-------------
 
+
+
+    socket.emit("user-joined", Object.keys(io.sockets.connected).length);
+    socket.broadcast.emit("user-joined", Object.keys(io.sockets.connected).length);
+
     socket.on("message-sent", function (mensagem) {
         socket.broadcast.emit('mensagens-updated', mensagem);
     });
 
     socket.on('disconnect', function () {
-        //Funções para brincar no disconnect
+        socket.broadcast.emit("user-joined", Object.keys(io.sockets.connected).length);
     })
 });
 

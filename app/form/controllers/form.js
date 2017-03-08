@@ -113,6 +113,11 @@
             autoScrollDownChat();
         });
 
+        Socket.on("user-joined", function (numeroUsuarios) {
+            console.log("user joined")
+            vm.numeroUsuarios = numeroUsuarios;
+        });
+
         vm.sendChat = function (mensagem) {
             var mensagemComposta = vm.usuarioRandom + ": " + mensagem;
             angular.isArray(vm.chatMessages) ? vm.chatMessages.push(mensagemComposta) : vm.chatMessages = [mensagemComposta];
